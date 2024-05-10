@@ -11,8 +11,8 @@
   DTS:LocaleID="8192"
   DTS:ObjectName="Package"
   DTS:PackageType="5"
-  DTS:VersionBuild="14"
-  DTS:VersionGUID="{2C68A50F-1496-4BA4-B32E-2233161B3CCE}">
+  DTS:VersionBuild="20"
+  DTS:VersionGUID="{70D50547-7B6B-4F33-B9DD-90F097C565AA}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -308,6 +308,53 @@
               DTS:TextQualified="True"
               DTS:ObjectName="FOOT"
               DTS:DTSID="{0AD49533-D53A-4F97-84AC-E23AA6AD5989}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Flat File Teams]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{9A1D8F55-09E3-439E-BE4C-883EB086873E}"
+      DTS:ObjectName="Flat File Teams">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="8192"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="65001"
+          DTS:ConnectionString="C:\Users\amani\Desktop\BI\hw\soccer-players-analysis\Teams.csv">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x003B_"
+              DTS:MaximumWidth="1000"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="TEAM_NAME"
+              DTS:DTSID="{7E568557-0A43-459F-92B9-33AA8AA7572A}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x003B_"
+              DTS:MaximumWidth="1000"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="COUNTRY"
+              DTS:DTSID="{24A2F049-5DC9-43E2-AAEA-9BADCA63C69B}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="HOME_STADIUM"
+              DTS:DTSID="{69D145F2-0A09-474E-BB40-2F5B9F0D2942}"
               DTS:CreationName="" />
           </DTS:FlatFileColumns>
         </DTS:ConnectionManager>
@@ -1743,6 +1790,16 @@
                       cachedLength="499"
                       cachedName="LAST_NAME"
                       lineageId="Package\Import Players\Flat File Source.Outputs[Flat File Source Output].Columns[LAST_NAME]" />
+                    <inputColumn
+                      refId="Package\Import Players\Derived Column.Inputs[Derived Column Input].Columns[HEIGHT]"
+                      cachedDataType="i2"
+                      cachedName="HEIGHT"
+                      lineageId="Package\Import Players\Flat File Source.Outputs[Flat File Source Output].Columns[HEIGHT]" />
+                    <inputColumn
+                      refId="Package\Import Players\Derived Column.Inputs[Derived Column Input].Columns[WEIGHT]"
+                      cachedDataType="i2"
+                      cachedName="WEIGHT"
+                      lineageId="Package\Import Players\Flat File Source.Outputs[Flat File Source Output].Columns[WEIGHT]" />
                   </inputColumns>
                   <externalMetadataColumns />
                 </input>
@@ -1776,6 +1833,50 @@
                           description="Derived Column Friendly Expression"
                           expressionType="Notify"
                           name="FriendlyExpression">FIRST_NAME + " " + LAST_NAME</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Import Players\Derived Column.Outputs[Derived Column Output].Columns[Height]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Import Players\Derived Column.Outputs[Derived Column Output].Columns[Height]"
+                      name="Height"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">#{Package\Import Players\Flat File Source.Outputs[Flat File Source Output].Columns[HEIGHT]} == 0 ? NULL(DT_I4) : #{Package\Import Players\Flat File Source.Outputs[Flat File Source Output].Columns[HEIGHT]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">HEIGHT == 0 ? NULL(DT_I4) : HEIGHT</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Import Players\Derived Column.Outputs[Derived Column Output].Columns[Weight]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Import Players\Derived Column.Outputs[Derived Column Output].Columns[Weight]"
+                      name="Weight"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">#{Package\Import Players\Flat File Source.Outputs[Flat File Source Output].Columns[WEIGHT]} == 0 ? NULL(DT_I4) : #{Package\Import Players\Flat File Source.Outputs[Flat File Source Output].Columns[WEIGHT]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">WEIGHT == 0 ? NULL(DT_I4) : WEIGHT</property>
                       </properties>
                     </outputColumn>
                   </outputColumns>
@@ -2299,22 +2400,6 @@
                       </properties>
                     </inputColumn>
                     <inputColumn
-                      refId="Package\Import Players\Remove Duplicates.Inputs[Sort Input].Columns[HEIGHT]"
-                      cachedDataType="i2"
-                      cachedName="HEIGHT"
-                      lineageId="Package\Import Players\Flat File Source.Outputs[Flat File Source Output].Columns[HEIGHT]">
-                      <properties>
-                        <property
-                          dataType="System.Int32"
-                          description="Specifies the comparison options for character data."
-                          name="NewComparisonFlags">0</property>
-                        <property
-                          dataType="System.Int32"
-                          description="Specifies the sort order of the column."
-                          name="NewSortKeyPosition">0</property>
-                      </properties>
-                    </inputColumn>
-                    <inputColumn
                       refId="Package\Import Players\Remove Duplicates.Inputs[Sort Input].Columns[WEIGHT]"
                       cachedDataType="i2"
                       cachedName="WEIGHT"
@@ -2354,6 +2439,22 @@
                       cachedLength="999"
                       cachedName="Name"
                       lineageId="Package\Import Players\Derived Column.Outputs[Derived Column Output].Columns[Name]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Import Players\Remove Duplicates.Inputs[Sort Input].Columns[Height]"
+                      cachedDataType="i4"
+                      cachedName="Height"
+                      lineageId="Package\Import Players\Derived Column.Outputs[Derived Column Output].Columns[Height]">
                       <properties>
                         <property
                           dataType="System.Int32"
@@ -2482,19 +2583,6 @@
                       </properties>
                     </outputColumn>
                     <outputColumn
-                      refId="Package\Import Players\Remove Duplicates.Outputs[Sort Output].Columns[HEIGHT]"
-                      dataType="i2"
-                      lineageId="Package\Import Players\Remove Duplicates.Outputs[Sort Output].Columns[HEIGHT]"
-                      name="HEIGHT">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="Specifies the lineage identifier of the input column that is associated with this output column."
-                          name="SortColumnId">#{Package\Import Players\Flat File Source.Outputs[Flat File Source Output].Columns[HEIGHT]}</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
                       refId="Package\Import Players\Remove Duplicates.Outputs[Sort Output].Columns[WEIGHT]"
                       dataType="i2"
                       lineageId="Package\Import Players\Remove Duplicates.Outputs[Sort Output].Columns[WEIGHT]"
@@ -2534,6 +2622,19 @@
                           dataType="System.Int32"
                           description="Specifies the lineage identifier of the input column that is associated with this output column."
                           name="SortColumnId">#{Package\Import Players\Derived Column.Outputs[Derived Column Output].Columns[Name]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Import Players\Remove Duplicates.Outputs[Sort Output].Columns[Height]"
+                      dataType="i4"
+                      lineageId="Package\Import Players\Remove Duplicates.Outputs[Sort Output].Columns[Height]"
+                      name="Height">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Import Players\Derived Column.Outputs[Derived Column Output].Columns[Height]}</property>
                       </properties>
                     </outputColumn>
                   </outputColumns>
@@ -2623,11 +2724,11 @@
                       externalMetadataColumnId="Package\Import Players\Save to DB.Inputs[ADO NET Destination Input].ExternalColumns[Position]"
                       lineageId="Package\Import Players\Remove Duplicates.Outputs[Sort Output].Columns[POSITION]" />
                     <inputColumn
-                      refId="Package\Import Players\Save to DB.Inputs[ADO NET Destination Input].Columns[HEIGHT]"
-                      cachedDataType="i2"
-                      cachedName="HEIGHT"
+                      refId="Package\Import Players\Save to DB.Inputs[ADO NET Destination Input].Columns[Height]"
+                      cachedDataType="i4"
+                      cachedName="Height"
                       externalMetadataColumnId="Package\Import Players\Save to DB.Inputs[ADO NET Destination Input].ExternalColumns[Height]"
-                      lineageId="Package\Import Players\Remove Duplicates.Outputs[Sort Output].Columns[HEIGHT]" />
+                      lineageId="Package\Import Players\Remove Duplicates.Outputs[Sort Output].Columns[Height]" />
                     <inputColumn
                       refId="Package\Import Players\Save to DB.Inputs[ADO NET Destination Input].Columns[WEIGHT]"
                       cachedDataType="i2"
@@ -2942,6 +3043,264 @@
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
+      DTS:refId="Package\Import Teams"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{afae911a-1e52-4233-aedf-de77fedf4ee9}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Import Teams"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Import Teams\Flat File Source"
+              componentClassID="Microsoft.FlatFileSource"
+              contactInfo="Flat File Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Flat File Source"
+              localeId="8192"
+              name="Flat File Source"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether zero-length columns are treated as null."
+                  name="RetainNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of an output column containing the file name. If no name is specified, no output column containing the file name will be generated."
+                  name="FileNameColumnName"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Import Teams\Flat File Source.Connections[FlatFileConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Flat File Teams]"
+                  connectionManagerRefId="Package.ConnectionManagers[Flat File Teams]"
+                  name="FlatFileConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Import Teams\Flat File Source.Outputs[Flat File Source Output]"
+                  name="Flat File Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Import Teams\Flat File Source.Outputs[Flat File Source Output].Columns[TEAM_NAME]"
+                      codePage="65001"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Import Teams\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[TEAM_NAME]"
+                      length="1000"
+                      lineageId="Package\Import Teams\Flat File Source.Outputs[Flat File Source Output].Columns[TEAM_NAME]"
+                      name="TEAM_NAME"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Import Teams\Flat File Source.Outputs[Flat File Source Output].Columns[COUNTRY]"
+                      codePage="65001"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Import Teams\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[COUNTRY]"
+                      length="1000"
+                      lineageId="Package\Import Teams\Flat File Source.Outputs[Flat File Source Output].Columns[COUNTRY]"
+                      name="COUNTRY"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Import Teams\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[TEAM_NAME]"
+                      codePage="65001"
+                      dataType="str"
+                      length="1000"
+                      name="TEAM_NAME" />
+                    <externalMetadataColumn
+                      refId="Package\Import Teams\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[COUNTRY]"
+                      codePage="65001"
+                      dataType="str"
+                      length="1000"
+                      name="COUNTRY" />
+                    <externalMetadataColumn
+                      refId="Package\Import Teams\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[HOME_STADIUM]"
+                      codePage="65001"
+                      dataType="str"
+                      length="50"
+                      name="HOME_STADIUM" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Import Teams\Flat File Source.Outputs[Flat File Source Error Output]"
+                  isErrorOut="true"
+                  name="Flat File Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Import Teams\Flat File Source.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                      codePage="65001"
+                      dataType="text"
+                      description="Flat File Source Error Output Column"
+                      lineageId="Package\Import Teams\Flat File Source.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                      name="Flat File Source Error Output Column" />
+                    <outputColumn
+                      refId="Package\Import Teams\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Import Teams\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Import Teams\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Import Teams\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Import Teams\Save to DB"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Loads data into an ADO.NET-compliant database that uses a database table or view. Load data into a new or existing table. For example, use an ADO.NET provider for ODBC to load data into an ODBC destination.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Loads data into an ADO.NET-compliant database that uses a database table or view. Load data into a new or existing table. For example, use an ADO.NET provider for ODBC to load data into an ODBC destination."
+              name="Save to DB"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="The Destination database table name."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">"dbo"."Team"</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the number of rows per batch. The default is 0 which uses the same size as SSIS internal buffer. "
+                  expressionType="Notify"
+                  name="BatchSize">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out. A value of 0 indicates infinite time-out. "
+                  expressionType="Notify"
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether to use the SqlBulkCopy interface to improve the performance of bulk insert operations. Only certain providers support this interface."
+                  expressionType="Notify"
+                  name="UseBulkInsertWhenPossible">true</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.ADONETDestination</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Import Teams\Save to DB.Connections[IDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[localhost\sqlexpress.BI_HW]"
+                  connectionManagerRefId="Package.ConnectionManagers[localhost\sqlexpress.BI_HW]"
+                  description="Managed connection manager"
+                  name="IDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Import Teams\Save to DB.Inputs[ADO NET Destination Input]"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="ADO NET Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Import Teams\Save to DB.Inputs[ADO NET Destination Input].Columns[COUNTRY]"
+                      cachedCodepage="65001"
+                      cachedDataType="str"
+                      cachedLength="1000"
+                      cachedName="COUNTRY"
+                      externalMetadataColumnId="Package\Import Teams\Save to DB.Inputs[ADO NET Destination Input].ExternalColumns[Country]"
+                      lineageId="Package\Import Teams\Flat File Source.Outputs[Flat File Source Output].Columns[COUNTRY]" />
+                    <inputColumn
+                      refId="Package\Import Teams\Save to DB.Inputs[ADO NET Destination Input].Columns[TEAM_NAME]"
+                      cachedCodepage="65001"
+                      cachedDataType="str"
+                      cachedLength="1000"
+                      cachedName="TEAM_NAME"
+                      externalMetadataColumnId="Package\Import Teams\Save to DB.Inputs[ADO NET Destination Input].ExternalColumns[Team]"
+                      lineageId="Package\Import Teams\Flat File Source.Outputs[Flat File Source Output].Columns[TEAM_NAME]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Import Teams\Save to DB.Inputs[ADO NET Destination Input].ExternalColumns[Team]"
+                      dataType="wstr"
+                      length="1000"
+                      name="Team" />
+                    <externalMetadataColumn
+                      refId="Package\Import Teams\Save to DB.Inputs[ADO NET Destination Input].ExternalColumns[Country]"
+                      dataType="wstr"
+                      length="1000"
+                      name="Country" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Import Teams\Save to DB.Outputs[ADO NET Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="ADO NET Destination Error Output"
+                  synchronousInputId="Package\Import Teams\Save to DB.Inputs[ADO NET Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Import Teams\Save to DB.Outputs[ADO NET Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Import Teams\Save to DB.Outputs[ADO NET Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Import Teams\Save to DB.Outputs[ADO NET Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Import Teams\Save to DB.Outputs[ADO NET Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Import Teams.Paths[Flat File Source Output]"
+              endId="Package\Import Teams\Save to DB.Inputs[ADO NET Destination Input]"
+              name="Flat File Source Output"
+              startId="Package\Import Teams\Flat File Source.Outputs[Flat File Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
       DTS:refId="Package\Truncate Goal"
       DTS:CreationName="Microsoft.ExecuteSQLTask"
       DTS:Description="Delete the content of the Goal table"
@@ -2950,7 +3309,7 @@
       DTS:LocaleID="-1"
       DTS:ObjectName="Truncate Goal"
       DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-      DTS:ThreadHint="0">
+      DTS:ThreadHint="1">
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
@@ -2967,7 +3326,7 @@
       DTS:LocaleID="-1"
       DTS:ObjectName="Truncate Match"
       DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-      DTS:ThreadHint="1">
+      DTS:ThreadHint="3">
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
@@ -2984,12 +3343,29 @@
       DTS:LocaleID="-1"
       DTS:ObjectName="Truncate Player"
       DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-      DTS:ThreadHint="2">
+      DTS:ThreadHint="0">
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{69886463-BAA2-4A37-9078-8C851ABDCEBE}"
           SQLTask:SqlStatementSource="truncate table Player" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate Team"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Delete the content of the Team table"
+      DTS:DTSID="{9ff185bf-db16-48e9-b526-d281f8b4335c}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate Team"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="2">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{69886463-BAA2-4A37-9078-8C851ABDCEBE}"
+          SQLTask:SqlStatementSource="truncate table Team" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
   </DTS:Executables>
@@ -3018,6 +3394,14 @@
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 2"
       DTS:To="Package\Import Goals" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{E6E46D4E-AACB-421A-A003-D2CABA350780}"
+      DTS:From="Package\Truncate Team"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:To="Package\Import Teams" />
   </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
@@ -3032,27 +3416,43 @@
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="130,42"
-          Id="Package\Truncate Player"
-          TopLeft="79,52" />
+          Size="142,42"
+          Id="Package\Import Goals"
+          TopLeft="252,163" />
+        <NodeLayout
+          Size="155,42"
+          Id="Package\Import Matches"
+          TopLeft="243,84" />
         <NodeLayout
           Size="150,42"
           Id="Package\Import Players"
-          TopLeft="248,51" />
+          TopLeft="249,30" />
+        <NodeLayout
+          Size="130,42"
+          Id="Package\Truncate Goal"
+          TopLeft="81,157" />
+        <NodeLayout
+          Size="130,42"
+          Id="Package\Truncate Match"
+          TopLeft="81,90" />
+        <NodeLayout
+          Size="130,42"
+          Id="Package\Truncate Player"
+          TopLeft="78,26" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
-          TopLeft="209,72.5">
+          TopLeft="208,49">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="39,0"
+              EndConnector="41,0"
               Start="0,0"
-              End="31.5,0">
+              End="33.5,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="31.5,0" />
+                    End="33.5,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -3061,17 +3461,9 @@
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="130,42"
-          Id="Package\Truncate Match"
-          TopLeft="81,119" />
-        <NodeLayout
-          Size="155,42"
-          Id="Package\Import Matches"
-          TopLeft="243,119" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 1]"
-          TopLeft="211,140">
+          TopLeft="211,108">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -3091,28 +3483,50 @@
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="130,42"
-          Id="Package\Truncate Goal"
-          TopLeft="79,202" />
-        <NodeLayout
-          Size="142,42"
-          Id="Package\Import Goals"
-          TopLeft="244,201" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 2]"
-          TopLeft="209,222.5">
+          TopLeft="211,181">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="35,0"
+              EndConnector="41,0"
               Start="0,0"
-              End="27.5,0">
+              End="33.5,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="27.5,0" />
+                    End="33.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="130,42"
+          Id="Package\Truncate Team"
+          TopLeft="82,225" />
+        <NodeLayout
+          Size="147,42"
+          Id="Package\Import Teams"
+          TopLeft="253,227" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="212,247">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="41,0"
+              Start="0,0"
+              End="33.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="33.5,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -3125,70 +3539,240 @@
     </LayoutInfo>
   </Package>
   <TaskHost
+    design-time-name="Package\Import Goals">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="130,42"
+          Id="Package\Import Goals\Save to DB"
+          TopLeft="457,51" />
+        <NodeLayout
+          Size="130,42"
+          Id="Package\Import Goals\Flat File Source"
+          TopLeft="60,53" />
+        <NodeLayout
+          Size="174,42"
+          Id="Package\Import Goals\Remove Duplicates"
+          TopLeft="241,50" />
+        <EdgeLayout
+          Id="Package\Import Goals.Paths[Sort Output]"
+          TopLeft="415,71.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="42,0"
+              Start="0,0"
+              End="34.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="34.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Import Goals.Paths[Flat File Source Output]"
+          TopLeft="190,72.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="51,0"
+              Start="0,0"
+              End="43.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="43.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Import Goals\Save to DB">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Import Matches">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="99,42"
+          Id="Package\Import Matches\Sort"
+          TopLeft="278,50" />
+        <NodeLayout
+          Size="130,42"
+          Id="Package\Import Matches\Flat File Source"
+          TopLeft="60,53" />
+        <NodeLayout
+          Size="130,42"
+          Id="Package\Import Matches\Save to DB"
+          TopLeft="457,51" />
+        <EdgeLayout
+          Id="Package\Import Matches.Paths[Sort Output]"
+          TopLeft="377,71.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="80,0"
+              Start="0,0"
+              End="72.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="72.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Import Matches.Paths[Flat File Source Output]"
+          TopLeft="190,72.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="88,0"
+              Start="0,0"
+              End="80.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="80.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Import Matches\Save to DB">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
     design-time-name="Package\Import Players">
     <LayoutInfo>
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="130,42"
+          Id="Package\Import Players\Save to DB failed"
+          TopLeft="218,134" />
+        <NodeLayout
+          Size="130,42"
           Id="Package\Import Players\Flat File Source"
           TopLeft="60,53" />
         <NodeLayout
           Size="130,42"
-          Id="Package\Import Players\Derived Column"
-          TopLeft="224,51" />
-        <EdgeLayout
-          Id="Package\Import Players.Paths[Flat File Source Output]"
-          TopLeft="190,73">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="34,0"
-              Start="0,0"
-              End="26.5,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="26.5,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="130,42"
           Id="Package\Import Players\Remove Duplicates"
           TopLeft="389.5,47.5" />
-        <EdgeLayout
-          Id="Package\Import Players.Paths[Derived Column Output]"
-          TopLeft="354,70.25">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="35.5,0"
-              Start="0,0"
-              End="28,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="28,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
         <NodeLayout
           Size="130,42"
           Id="Package\Import Players\Save to DB"
           TopLeft="547,48" />
+        <NodeLayout
+          Size="158,42"
+          Id="Package\Import Players\Derived Column"
+          TopLeft="224,51" />
+        <EdgeLayout
+          Id="Package\Import Players.Paths[Derived Column Output]"
+          TopLeft="328,93">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="126.5,-3.5"
+              Start="0,0"
+              End="126.5,4">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,18.5"
+                    Point2="0,22.5"
+                    Point3="4,22.5" />
+                  <mssgle:LineSegment
+                    End="122.5,22.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="122.5,22.5"
+                    Point2="126.5,22.5"
+                    Point3="126.5,18.5" />
+                  <mssgle:LineSegment
+                    End="126.5,4" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Import Players.Paths[Derived Column Error Output]"
+          TopLeft="280.5,93">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,41"
+              Start="0,0"
+              End="0,33.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,33.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-64.96138671875,10.9453125,129.9227734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
         <EdgeLayout
           Id="Package\Import Players.Paths[Sort Output]"
           TopLeft="519.5,68.75">
@@ -3211,45 +3795,31 @@
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="130,42"
-          Id="Package\Import Players\Save to DB failed"
-          TopLeft="218,134" />
         <EdgeLayout
-          Id="Package\Import Players.Paths[Derived Column Error Output]"
-          TopLeft="286,93">
+          Id="Package\Import Players.Paths[Flat File Source Output]"
+          TopLeft="190,73">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,41"
+              EndConnector="34,0"
               Start="0,0"
-              End="0,33.5">
+              End="26.5,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,33.5" />
+                    End="26.5,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-64.96138671875,10.9453125,129.9227734375,11.609375"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
-  <PipelineComponentMetadata
-    design-time-name="Package\Import Players\Save to DB">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\Import Players\Save to DB failed">
     <Properties>
@@ -3258,72 +3828,8 @@
       </Property>
     </Properties>
   </PipelineComponentMetadata>
-  <TaskHost
-    design-time-name="Package\Import Matches">
-    <LayoutInfo>
-      <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
-        <NodeLayout
-          Size="130,42"
-          Id="Package\Import Matches\Save to DB"
-          TopLeft="457,51" />
-        <NodeLayout
-          Size="130,42"
-          Id="Package\Import Matches\Flat File Source"
-          TopLeft="60,53" />
-        <NodeLayout
-          Size="99,42"
-          Id="Package\Import Matches\Sort"
-          TopLeft="278,50" />
-        <EdgeLayout
-          Id="Package\Import Matches.Paths[Flat File Source Output]"
-          TopLeft="190,72.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="88,0"
-              Start="0,0"
-              End="80.5,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="80.5,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Import Matches.Paths[Sort Output]"
-          TopLeft="377,71.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="80,0"
-              Start="0,0"
-              End="72.5,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="72.5,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-      </GraphLayout>
-    </LayoutInfo>
-  </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\Import Matches\Save to DB">
+    design-time-name="Package\Import Players\Save to DB">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -3331,58 +3837,32 @@
     </Properties>
   </PipelineComponentMetadata>
   <TaskHost
-    design-time-name="Package\Import Goals">
+    design-time-name="Package\Import Teams">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="130,42"
-          Id="Package\Import Goals\Save to DB"
-          TopLeft="457,51" />
+          Id="Package\Import Teams\Save to DB"
+          TopLeft="263,55" />
         <NodeLayout
           Size="130,42"
-          Id="Package\Import Goals\Flat File Source"
+          Id="Package\Import Teams\Flat File Source"
           TopLeft="60,53" />
-        <NodeLayout
-          Size="174,42"
-          Id="Package\Import Goals\Remove Duplicates"
-          TopLeft="241,50" />
         <EdgeLayout
-          Id="Package\Import Goals.Paths[Flat File Source Output]"
-          TopLeft="190,72.5">
+          Id="Package\Import Teams.Paths[Flat File Source Output]"
+          TopLeft="190,75">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="51,0"
+              EndConnector="73,0"
               Start="0,0"
-              End="43.5,0">
+              End="65.5,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="43.5,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Import Goals.Paths[Sort Output]"
-          TopLeft="415,71.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="42,0"
-              Start="0,0"
-              End="34.5,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="34.5,0" />
+                    End="65.5,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -3395,7 +3875,7 @@
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\Import Goals\Save to DB">
+    design-time-name="Package\Import Teams\Save to DB">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
